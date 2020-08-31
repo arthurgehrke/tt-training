@@ -1,10 +1,3 @@
-const express = require('express')
+const app = require('./app')
 
-const app = express()
-
-app.get('/home', (req,res)=> {
-  res.send('Hello World')
-})
-
-app.listen(3001, ()=>{})
-
+app.listen(3001)
