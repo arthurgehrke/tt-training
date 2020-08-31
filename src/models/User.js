@@ -20,9 +20,17 @@ const UserSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
+  token: {
+    type: String,
+    required: false
+  },
   password: {
     type: String,
     required: true
+  },
+  active: {
+    type: Boolean,
+    default: false
   },
   createdAt: {
     type: Date,
@@ -30,10 +38,8 @@ const UserSchema = new mongoose.Schema({
   }
 })
 
-UserSchema.pre('save', async function(next){
-  if(!this.isModified('password')){
-    return next()
-  }
+UserSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) return next()
 
   this.password = await bcrypt.hash(this.password, 7)
 })
